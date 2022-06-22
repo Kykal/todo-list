@@ -1,3 +1,17 @@
+:root {
+
+	--black-1:	rgb( 14, 16, 18 );
+	--black-2:	rgb( 24, 26, 28 );
+	--black-3:	rgb( 34, 36, 38);
+	--black-4:	rgb( 44, 46, 48 );
+
+	--blue:		rgb(86, 194, 234);
+
+	--background-color: rgb(6, 8, 10);
+	--white:		rgb( 255, 255, 255 );
+	--red:		rgb(233, 30, 99);
+}
+
 * {
 	font-family: Roboto;
 
@@ -5,4 +19,14 @@
 	padding: 0;
 
 	box-sizing: border-box;
+}
+
+html, body {
+	background-color: var(--background-color);
+	color: var(--white);
+	user-select: none;
+}
+
+div#root {
+	position: relative;
 }
