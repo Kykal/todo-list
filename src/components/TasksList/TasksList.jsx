@@ -59,12 +59,13 @@ const Options = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
-	width: 6em;
+	width: 7.5em;
+	height: 100%;
 `;
 
 const Button = styled.button`
-	width: 2.75em;
-	height: 2.75em;
+	width: 3.25em;
+	height: 3.25em;
 
 	background-color: var(--black-4);
 	border: none;
@@ -83,7 +84,7 @@ const Button = styled.button`
 	}
 
 	& svg {
-		scale: 1.25;
+		scale: 1.4;
 	}
 `;
 
@@ -96,25 +97,37 @@ const done = {
 //Main component content
 const TasksList = (props) => {
 
+	const tasks = props.tasks;
 
 	//Component render
 	return (
 		<ListContainer>
-			{props.tasks.map( (task, index) => (
+			{tasks.map( (task, index) => (
 				<ListItem key={index} >
 					<Checkbox>
-						<input type="checkbox" name={task} id={task} />
+						<input 
+							type="checkbox" 
+							name={task.label} 
+							id={task.label}
+							checked={task.isChecked}
+						
+							onChange={ props.checkTask(index) }
+						/>
 					</Checkbox>
-					<LabelOptions  >
-						<Label htmlFor={task}>
-							{task}
+					<LabelOptions
+						style={{
+							opacity: task.isChecked ? "0.5": "1"
+						}}
+					>
+						<Label htmlFor={task.label}>
+							{task.label}
 						</Label>
 						<Options>
 							<Button>
-								<AiFillEdit style={{ color: "var(--blue)" }} />
+								<AiFillEdit />
 							</Button>
-							<Button>
-								<AiFillDelete style={{ color: "var(--red)" }} />
+							<Button onClick={props.deleteTask(index)} >
+								<AiFillDelete />
 							</Button>
 						</Options>
 					</LabelOptions>
