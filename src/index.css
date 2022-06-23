@@ -13,7 +13,7 @@
 }
 
 * {
-	font-family: Roboto, system-ui;
+	font-family: Roboto, system-ui, -apple-system;
 
 	margin: 0;
 	padding: 0;
