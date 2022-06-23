@@ -25,7 +25,7 @@ const ListItem = styled.li`
 	list-style-type: none;
 	background-color: var(--black-2);
 	height: 4em;
-	padding-right: 0.5em;
+	padding-right: 1.25em;
 
 	border-radius: 0.15em;
 
@@ -37,20 +37,27 @@ const Checkbox = styled.div`
 	justify-content: center;
 	align-items: center;
 	width: 3em;
+	cursor: pointer;
 
-	& > input[type="checkbox"] {
-		background-color: red;
+	& > input[type="checkbox"]:checked {
+		color: red;
 	}
 `;
 
-const Label = styled.label`
+
+const InputLabel = styled.input`
 	font-size: large;
+	background-color: var(--black-2);
+	border: none;
+	color: var(--white);
 `;
 
 const LabelOptions = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	
+
 
 	flex-grow: 1;
 `;
@@ -58,7 +65,7 @@ const LabelOptions = styled.div`
 const Options = styled.div`
 	display: flex;
 	align-items: center;
-	justify-content: space-around;
+	justify-content: flex-end;
 	width: 7.5em;
 	height: 100%;
 `;
@@ -104,14 +111,13 @@ const TasksList = (props) => {
 		<ListContainer>
 			{tasks.map( (task, index) => (
 				<ListItem key={index} >
-					<Checkbox>
+					<Checkbox onClick={props.checkTask(index)} >
 						<input 
 							type="checkbox" 
 							name={task.label} 
 							id={task.label}
 							checked={task.isChecked}
-						
-							onChange={ props.checkTask(index) }
+							readOnly				
 						/>
 					</Checkbox>
 					<LabelOptions
@@ -119,13 +125,11 @@ const TasksList = (props) => {
 							opacity: task.isChecked ? "0.5": "1"
 						}}
 					>
-						<Label htmlFor={task.label}>
-							{task.label}
-						</Label>
+						<InputLabel
+							value={task.label}
+							onChange={props.updateLabel(index)}
+						/>
 						<Options>
-							<Button>
-								<AiFillEdit />
-							</Button>
 							<Button onClick={props.deleteTask(index)} >
 								<AiFillDelete />
 							</Button>

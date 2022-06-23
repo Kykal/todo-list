@@ -70,7 +70,7 @@ const Form = (props) => {
 						id="task-input"
 						type="text"
 
-						placeholder="Clean dining room table"
+						placeholder="Clean dining room table..."
 						autoComplete="off"
 
 						value={props.inputValue}

@@ -6,7 +6,8 @@ import {
 	readLocalStorage, 
 	saveLocalStorage,
 	deleteTaskLocalStorage,
-	checkTaskLocalStorage
+	checkTaskLocalStorage,
+	updateLabelTaskLocalStorage
 } from './util';
 
 
@@ -39,6 +40,16 @@ const Main = styled.main`
 const Container = styled.div`
 	width: 55em;
 	max-width: 55em;
+`;
+
+
+const NoTasksLabel = styled.h2`
+	text-align: center;
+	padding-top: 3em;
+`;
+
+const NoTasksLabelSub = styled.h3`
+	text-align: center;
 `;
 
 
@@ -80,16 +91,25 @@ const App = () => {
 	};
 
 	//Delete task from state and localStorage
-	const deleteTask = (index) => (event) => {
+	const deleteTask = (index) => () => {
 		const newTaskList = deleteTaskLocalStorage(index);
 
 		setTasks(newTaskList);
 	};
 
 	//To check task
-	const checkTask = (index) => (event) => {
+	const checkTask = (index) => () => {
 		const newTaskList = checkTaskLocalStorage(index);
 		
+		setTasks(newTaskList);
+	};
+
+	//Description. What does this?
+	const updateLabel = (index) => (event) => {
+		const newLabel = event.target.value;
+
+		const newTaskList = updateLabelTaskLocalStorage(index, newLabel);
+
 		setTasks(newTaskList);
 	};
 
@@ -109,13 +129,24 @@ const App = () => {
 							onInputChange={inputHandler}
 						/>
 					</Paper>
-					<TasksList 
-						tasks={tasks} //List of all tasks and its status
+					{tasks.length === 0 ? (
+						<>
+							<NoTasksLabel>
+								Looks empty here...
+							</NoTasksLabel>
+							<NoTasksLabelSub>
+								Try adding new tasks!
+							</NoTasksLabelSub>
+						</>
+					) : (
+						<TasksList 
+							tasks={tasks} //List of all tasks and its status
 
-						deleteTask={deleteTask} //To delete a tasks
-
-						checkTask={checkTask}
-					/>
+							deleteTask={deleteTask} //To delete a tasks
+							updateLabel={updateLabel}
+							checkTask={checkTask}
+						/>
+					)}
 				</Container>
 			</Main>
 		</>
