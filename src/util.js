@@ -55,8 +55,6 @@ export const checkTaskLocalStorage = (index) => {
 
 export const updateLabelTaskLocalStorage = (index, newLabel) => {
 
-	console.log( index, newLabel );
-
 	let list = [...getItems()];
 
 	list[index].label = newLabel;
