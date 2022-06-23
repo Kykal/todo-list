@@ -13,7 +13,7 @@
 }
 
 * {
-	font-family: Roboto;
+	font-family: Roboto, system-ui;
 
 	margin: 0;
 	padding: 0;
