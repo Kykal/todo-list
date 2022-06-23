@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 
 
+//Utils
+import { 
+	readLocalStorage, 
+	saveLocalStorage,
+	deleteTaskLocalStorage,
+	checkTaskLocalStorage
+} from './util';
+
+
 //MATERIAL DESIGN
 //Components
 import Paper		from './components/Paper';
@@ -36,14 +45,13 @@ const Container = styled.div`
 //Main component content
 const App = () => {
 
-	const [ tasks, setTasks ] = useState([]);
-	const [ checkedTasks, setCheckedTasks ] = useState([]);
+	const [ tasks, setTasks ] = useState( readLocalStorage() );
 	const [ inputValue, setInputValue ] = useState("");
 
 	//Submit form
 	const submitHandler = (event) => {
 				
-		//AVoid webapp refresh
+		//Avoid webapp to refresh
 		event.preventDefault();
 
 		//If input string is empty, do nothing
@@ -54,14 +62,35 @@ const App = () => {
 		//Declares local list
 		let list = [...tasks];
 
-		list.push(inputValue);
-		setTasks(list); //Updates list
+		list.push({
+			label: inputValue,
+			isChecked: false
+		});
+
+		//Update list
+		setTasks(list);
+		saveLocalStorage(list); //localStorage
+
 		setInputValue(""); //Clear input value
 	};
 	
 	//Updates input value
 	const inputHandler = (event) => {
 		setInputValue(event.target.value);
+	};
+
+	//Delete task from state and localStorage
+	const deleteTask = (index) => (event) => {
+		const newTaskList = deleteTaskLocalStorage(index);
+
+		setTasks(newTaskList);
+	};
+
+	//To check task
+	const checkTask = (index) => (event) => {
+		const newTaskList = checkTaskLocalStorage(index);
+		
+		setTasks(newTaskList);
 	};
 
 	//Component render
@@ -81,7 +110,11 @@ const App = () => {
 						/>
 					</Paper>
 					<TasksList 
-						tasks={tasks} 
+						tasks={tasks} //List of all tasks and its status
+
+						deleteTask={deleteTask} //To delete a tasks
+
+						checkTask={checkTask}
 					/>
 				</Container>
 			</Main>
