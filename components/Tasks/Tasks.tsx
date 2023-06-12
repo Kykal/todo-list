@@ -6,7 +6,8 @@ import TaskItem from "./Task";
 import type Task from "@/typings/Task";
 type Tasks = {
 	tasks: Task[];
-	onDelete: (task: Task[]) => void;
+	onDelete: (task: Task) => void;
+	isLoading: boolean;
 }
 
 //Main component content
@@ -14,14 +15,26 @@ const Tasks = (props: Tasks): JSX.Element => {
 
 	//Handlers
 	const deleteTaskHandler = (task: Task) => {
-		const index = props.tasks.indexOf(task);
-
-		const newTasks: Task[] = [...props.tasks];
-
-		newTasks.splice(index, 1);
-
-		props.onDelete(newTasks);
+		props.onDelete(task);
 	};
+
+	if( props.isLoading ){
+		return(
+			<ul
+				className='flex flex-col gap-4'
+			>
+				<li
+					className='text-center'
+				>
+					<span
+						className='text-2xl animate-pulse'
+					>
+						Loading tasks...
+					</span>
+				</li>
+			</ul>
+		);
+	}
 
 	if( props.tasks.length == 0 ){
 		return(
@@ -46,15 +59,17 @@ const Tasks = (props: Tasks): JSX.Element => {
 		);
 	}
 
+
 	//Main component render
 	return (
 		<ul
 			className='flex flex-col gap-4'
 		>
-			{props.tasks.map( (task) => (
+			{props.tasks.map( (task, index) => (
 				<TaskItem
 					key={`${task.label}-${task.createdAt.toISOString()}`}
 					task={task}
+					index={index}
 					onDelete={deleteTaskHandler}
 				/>
 			) )}
