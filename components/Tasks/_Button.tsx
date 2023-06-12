@@ -10,7 +10,7 @@ const Button = (props: Button): JSX.Element => {
 	//Main component render
 	return (
 		<button
-			className='uppercase bg-k-black-4 px-6 py-4 rounded-sm'
+			className='uppercase bg-k-black-4 px-6 py-4 rounded-sm hover:bg-k-black-5'
 			onClick={props.onClick}
 		>
 			{props.children}	

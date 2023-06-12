@@ -23,6 +23,29 @@ const Tasks = (props: Tasks): JSX.Element => {
 		props.onDelete(newTasks);
 	};
 
+	if( props.tasks.length == 0 ){
+		return(
+			<ul
+				className='flex flex-col gap-4'
+			>
+				<li
+					className='text-center'
+				>
+					<h4
+						className='text-2xl font-bold'
+					>
+						Looks a little bit empty...
+					</h4>
+					<span
+						className='text-xl text-neutral-500'
+					>
+						Try to add some tasks!
+					</span>
+				</li>
+			</ul>
+		);
+	}
+
 	//Main component render
 	return (
 		<ul
