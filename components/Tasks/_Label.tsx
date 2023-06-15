@@ -19,7 +19,6 @@ const Label = (props: Label): JSX.Element => {
 			className={`grow bg-k-black-3 focus:bg-k-black-4 text-lg ${props.checked && 'line-through'} ${props.checked && 'text-neutral-400'}`}
 			value={props.value}
 			onChange={props.onChange}
-			multiple
 		/>
 	);
 };

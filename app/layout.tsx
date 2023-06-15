@@ -1,10 +1,10 @@
 //NextJS
 import { Roboto } from 'next/font/google'
-export const metadata = sharedMetadata;
 
 
 //Configuration
 import sharedMetadata from '@/configuration/sharedMetadata';
+export const metadata = sharedMetadata;
 
 
 //Styles

@@ -31,6 +31,7 @@ const Task = (props: TaskProps): JSX.Element => {
 
 	useEffect( () => {
 		updateTask(task, props.index);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [task] );
 
 	//Handlers
